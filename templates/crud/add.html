@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Todo - Add Task</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+		<style>
+			body{
+				background: url(https://images.unsplash.com/photo-1505245208761-ba872912fac0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60);
+			  background-repeat: no-repeat;
+			  background-size: cover;
+			}
+			input{
+				width: 100%;
+				padding: 12px 20px;
+				margin: 8px 0;
+				box-sizing: border-box;
+			}
+			input::placeholder {
+			  color: #d3d3d3;
+			}
+			.center{
+				width:600px;
+				margin: 20px auto;
+				padding:20px;
+				background-color: #fff;
+				border-radius: 3px;
+				box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
+			}
+			.submit{
+				background-color: #6BA3E8;
+			}
+			.item{
+				background-color: lightgrey;
+				margin: 10px;
+				padding: 20px;
+				border-radius: 3px;
+				color: green;
+				font-size: 18px;
+				box-shadow: 0px -1px 10px -4px rgba(0,0,0,0.75);
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="center">
+
+			<form method="POST" action="/">
+				{% csrf_token %}
+				{{form.title}}
+				<input type="submit" class="btn btn-info" name="task" value="Add New Task">
+			</form>
+
+			<div class="todo-list">
+				{% for task in tasks %}
+					<div class="item">
+						<a class="btn btn-sm btn-info" href="{% url 'update' task.id %}">Update</a>
+						<a class="btn btn-sm btn-danger" href="{% url 'delete' task.id %}"
+							onclick="return confirm('Are you sure to Delete the Record')"
+							style="border:1px solid lightblue;background-color:red;">Delete</a>
+						<span>{{task}}</span>
+					</div>
+				{% endfor %}
+			</div>
+
+		</div>
+
+	</body>
+	
+</html>
